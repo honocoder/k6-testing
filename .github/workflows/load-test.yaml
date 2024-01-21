@@ -1,13 +1,14 @@
-k6_load_test:
-  name: k6 Load Test
-  on: push
-  runs-on: ubuntu-latest
-
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-
-    - name: Run local k6 test
-      uses: grafana/k6-action
-      with:
-        filename: script.js
+name: k6
+on: [push]
+jobs:
+  build:
+    name: Run k6 test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run k6 local test
+        uses: grafana/k6-action@v0.3.1
+        with:
+          filename: script.js
+          flags: --vus 50 --duration 10s
